@@ -1,0 +1,103 @@
+<h6><u> Your Requests</u></h6>
+<% if can? :create, Request %>
+  <%= link_to "Add new request", new_request_path %>
+<% end %>
+<br>
+
+<table class="table mx-5">
+<thead>
+  <tr>
+    <th>Requested By (patient)</th>
+    <th>Request To(doc) </th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+
+    <% if current_user.usertype == "patient" %>
+      (patient see his req only)
+
+      <% Request.where(user_id:current_user.id).each do |r| %>
+        <tr>
+          <td><%= User.find(r.user_id).name %>  </td>
+          <td><%= User.find(r.requestto).name %> </td>
+          <td>
+              <% if r.status == 1 %> 
+                pending
+              <% elsif r.status == 2 %>
+                rejected
+              <% elsif r.status == 3 %>
+                accepted
+              <% end %>
+          </td>
+          <td> 
+              <% if can? :update, Request %>
+                <%= link_to "edit status", edit_request_path(r) %>
+              <% end %>
+          </td>
+          <td> 
+            <% if can? :destroy, Request %>
+              <%= link_to "delete", r, :confirm => "are you sure?", :method => :delete %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>   
+    <% elsif current_user.usertype =="doctor" %>
+      (doc see his req only)
+
+      <% @docreq.all.each do |r| %>
+        <tr>
+          <td><%= User.find(r.user_id).name %>  </td>
+          <td><%= User.find(r.requestto).name %> </td>
+          <td>
+            <% if r.status == 1 %> 
+              pending
+            <% elsif r.status == 2 %>
+              rejected
+            <% elsif r.status == 3 %>
+              accepted
+            <% end %>
+          </td>
+          <td> 
+            <% if can? :update, Request %>
+              <%= link_to "edit status", edit_request_path(r) %>
+            <% end %>
+          </td>
+          <td> 
+            <% if can? :destroy, Request %>
+              <%= link_to "delete", r, :confirm => "are you sure?", :method => :delete %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% elsif current_user.usertype =="admin"  %>
+        Admin can see all request
+      <% Request.all.each do |r| %>
+        <tr>
+          <td><%= User.find(r.user_id).name %>  </td>
+          <td><%= User.find(r.requestto).name %> </td>
+         <td>
+            <% if r.status == 1 %> 
+              pending
+            <% elsif r.status == 2 %>
+              rejected
+            <% elsif r.status == 3 %>
+              accepted
+            <% end %>
+          </td>
+          <td> 
+            <% if can? :update, Request %>
+              <%= link_to "edit status", edit_request_path(r) %>
+           <% end %>
+          </td>
+          <td> 
+            <% if can? :destroy, Request %>
+              <%= link_to "delete", r, :confirm => "are you sure?", :method => :delete %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+</tbody>
+</table>

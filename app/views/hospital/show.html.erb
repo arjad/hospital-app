@@ -1,0 +1,26 @@
+<div class="p-4">
+<h1>Hospital Detail </h1>
+<p>name = <%= @onehos.name %></p>
+<p>city = <%= @onehos.city %></p>
+<p> address = <%= @onehos.address %></p>
+<p> created at = <%= @onehos.created_at %></p>
+<p> updated at = <%= @onehos.updated_at %></p>
+<br>
+
+<h6>Hospital has following doctors</h6>
+<% @onehos.hospitaltreatments.each do |ht| %>
+    <% User.where(hospitaltreatment_id:ht.id).each do |u| %>
+        <% if u.usertype == "doctor" %>
+            <p> <%= u.name %> </p>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= link_to "see treatments", hospital_treatment_index_path(@onehos) %><br>
+
+
+
+
+</div>
+
+

@@ -1,0 +1,36 @@
+<table class="table">
+<h2><u>All Treatments</u></h2> 
+<% if can? :create, @Treatment %>
+
+<%= link_to "Add new Treatments", new_hospital_treatment_path %>
+<% end %>
+
+<br>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @mytreat.each do |x| %>
+    <tr>
+      <td><a href="treatment/<%= x.id %>"><%= x.name %></a></td>
+      
+      <td> 
+        <% if can? :update, @Treatment %>
+          <a href="treatment/<%= x.id %>/edit">edit </a> 
+        <% end %>
+      </td>
+      <td> 
+        <% if can? :destroy, @Treatment %>
+          <%= link_to 'Delete', hospital_treatment_path(params[:hospital_id], x), method: :delete, data: {confirm: 'Are you sure?'} %>  
+        <% end %>
+      </td>
+
+    </tr>
+<% end %>
+
+</tbody>
+</table>

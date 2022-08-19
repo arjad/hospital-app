@@ -1,0 +1,48 @@
+<div class="p-4">
+<h1>Treatment Detail </h1>
+<p>Name = <%= @onetreat.name %></p>
+<p>
+    Price = $ <%= Hospitaltreatment.find_by(hospital_id:params[:hospital_id], treatment_id: params[:id]).price %> 
+    <% if can? :update, @Treatment %>
+        <a href="/hospital/<%= params[:hospital_id] %>/treatment/<%= params[:id] %>/price/new">assign price </a>
+    <% else %>
+       ( you cannot assign price)
+    <% end %>
+</p>
+<p> created at = <%= @onetreat.created_at %></p>
+<p> updated at = <%= @onetreat.updated_at %></p>
+<br>
+<hr>
+
+<div class="row">
+<section class="col-6">
+<h5>Already assigned doctors<h5>
+<% User.all.each do |users| %>
+    <% if users.usertype == "doctor" %>
+    <% if users.hospitaltreatment_id == Hospitaltreatment.find_by(hospital_id:params[:hospital_id], treatment_id: params[:id]).id %>
+        <p>  
+            <%= users.name%>  
+            <a href="/hospital/<%= params[:hospital_id] %>/treatment/<%= params[:id] %>/user/<%= users.id %>">unassign </a>
+        </p>
+    <% end %>
+    <% end %>
+<% end %>
+</section>
+
+<section class="col-6">
+<h5>click to assign </h5>
+<% User.all.each do |users| %>
+    <% if users.usertype == "doctor" %>
+    <% if users.hospitaltreatment_id == nil %>
+    <p> 
+        <%=users.name%>
+        <a href="/hospital/<%= params[:hospital_id] %>/treatment/<%= params[:id] %>/user/<%= users.id %>">assign </a>
+    </p>
+    <% end %>
+    <% end %>
+<% end %>
+</section>
+<div>
+</div>
+
+

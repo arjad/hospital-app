@@ -1,0 +1,29 @@
+<div class="m-5">
+        <h2><u>Update Hospital </u></h2>
+
+        <%= form_for @hos,:url => { :action => "update" } do |f| %>
+            <%= token_tag %>
+            <% if @hos.errors.any? %>
+                <h6> error = </h6>
+                <%= @hos.errors.full_messages.each do |m| %>
+                <%= m %><br>
+                <% end %>
+            <% end %>
+            <p>
+                <%= f.label :name %> <br/>
+                <%= f.text_field :name %>
+            </p>
+            <p>
+                <%= f.label :city %> <br/>
+                <%= f.text_field :city %>
+            </p>
+            <p>
+                <%= f.label :address %> <br/>
+                <%= f.text_field :address %>
+            </p>
+            <p>
+                <%= f.submit "update hospital" %>
+            </p>
+        <% end %>
+
+</div>

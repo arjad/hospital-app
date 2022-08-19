@@ -1,0 +1,35 @@
+<p class="m-5">
+<% if user_signed_in? %>
+<section class="container">
+<section class="row">
+  
+  <div class="col-12">
+    <h2>Dashboard</h2>
+    username = <%= current_user.name %><br>
+    user type = <%= current_user.usertype %><br>
+    email = <%= current_user.email %><br>
+
+    <%= link_to 'logout', destroy_user_session_path, method:"delete" %><br>
+    <%= link_to 'Edit Profile', edit_user_registration_path %><br>
+
+    <% if can? :manage, @Hospital %>
+    <%= link_to 'See all Hospitals', hospital_index_path %><br>
+      
+    <% end %>
+    <%= link_to 'See Requests', request_index_path %><br><br><br>
+
+    <hr>
+
+    
+  </div>
+</section>
+</section>
+<% else %>
+    <p>signin or signup first</p>
+
+<% end %>
+
+<br>
+<%= link_to "Back", :back %>
+</p>
+

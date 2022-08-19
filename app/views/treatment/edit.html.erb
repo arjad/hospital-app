@@ -1,0 +1,23 @@
+<div class="m-5">
+        <h2><u>Update Treatment </u></h2>
+
+        <%= form_for @treat, :url => { :action => "update" } do |f| %>
+            <%= token_tag %>
+            <% if @treat.errors.any? %>
+                <h6> error = </h6>
+                <%= @treat.errors.full_messages.each do |m| %>
+                <%= m %><br>
+                <% end %>
+            <% end %>
+            <p>
+                <%= f.label :name %> <br/>
+                <%= f.text_field :name %>
+            </p>
+           
+
+            <p>
+                <%= f.submit "update treatment" %>
+            </p>
+        <% end %>
+
+</div>

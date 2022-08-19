@@ -1,0 +1,39 @@
+<table class="table">
+<h2><u>All Hospitals</u></h2> 
+<% if can? :destroy, @myhos %>
+
+<%= link_to "Add new Hospital", new_hospital_path %>
+<% end %>
+<br>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>Address</th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @myhos.each do |x| %>
+    <tr>
+        <td> <%= link_to x.name, x %>  </td>
+        <td> <%= x.city %></td>
+        <td> <%= x.address %>  </td>
+        <td>
+          <% if can? :destroy, @myhos %>
+            <%= link_to "delete", x, :confirm => "are you sure?", :method => :delete %>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :update, @myhos %>
+
+            <%= link_to "update", edit_hospital_path(x) %>
+          <% end %>
+        </td>
+
+    </tr>
+<% end %>
+
+</tbody>
+</table>

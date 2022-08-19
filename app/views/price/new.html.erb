@@ -1,0 +1,14 @@
+<u>add new price</u>
+<br>
+<br>
+ 
+<%= form_for @u ,:url => { :action => "create" } do |f| %>
+    <p>
+        <%= f.label :price %> <br/>
+        <%= f.text_field :price %>
+    </p>
+    <p>
+        <%= f.submit "add price" %>
+    </p>
+
+<% end %>

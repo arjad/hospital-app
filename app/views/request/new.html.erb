@@ -1,0 +1,27 @@
+<h6><u> Create new Request to Following doctors for treatment </u></h6>
+
+<%= form_for @req,:url => { :action => "create" } do |f| %>
+<table class="table">
+ <thead>
+   <tr>
+     <th>Doctor Name</th>
+     <th>Email </th>
+   </tr>
+ </thead>
+ <tbody>
+  <%  User.all.each do |u| %>
+  <% if u.usertype =="doctor" %>
+  <tr> 
+    <td><%= u.name %> </td>
+    <td><%= u.email %> </td>
+    <td><%= check_box_tag "requestto", u.id, nil, {multiple:false} %></td>
+  </tr>
+  <% end %>
+  <% end %>
+ </tbody>
+ </table>
+
+<p>
+<%= f.submit "create req" %>
+</p>
+<% end %>

@@ -1,0 +1,14 @@
+<h6><u> edit request status </u></h6>
+
+<%= form_for @req,:url => { :action => "update" } do |f| %>
+    <%= token_tag %>
+    <p>
+        <%= f.label :status %> <br/>
+        <%= f.select :status, Request.statusds.keys %>
+    </p>
+  
+    <p>
+        <%= f.submit "update status" %>
+    </p>
+
+<% end %>
